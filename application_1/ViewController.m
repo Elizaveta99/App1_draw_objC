@@ -77,6 +77,7 @@
         CGContextSetLineDash(UIGraphicsGetCurrentContext(), 0, (CGFloat[]){2, 1}, 2);
     }
     
+    CGContextSetLineJoin(UIGraphicsGetCurrentContext(), kCGLineJoinRound);
     CGContextBeginPath(UIGraphicsGetCurrentContext());
     CGContextMoveToPoint(UIGraphicsGetCurrentContext(), _lastPoint.x,
                          _lastPoint.y);
