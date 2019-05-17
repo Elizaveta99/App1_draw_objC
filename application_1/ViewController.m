@@ -26,8 +26,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.colorsArray = [NSArray arrayWithObjects: UIColor.purpleColor, UIColor.blueColor, UIColor.greenColor, UIColor.orangeColor, UIColor.redColor, nil];
-    
-    UIImage* colors = [UIImage imageNamed: @"colors.png"]; //??
+
+    UIImage* colors = [UIImage imageNamed: @"colors.png"];
     self.colorsImage = [[UIImageView alloc] initWithFrame:self.colorsImage.frame];
     self.colorsImage.contentMode = UIViewContentModeScaleAspectFit;
     self.colorsImage.image = colors;
@@ -35,9 +35,9 @@
 
 }
 - (IBAction)formSwitchTapped:(id)sender {
-    if (self.formSwitch.isOn)
+    if (_formSwitch.isOn)
     {
-        CGContextSetLineDash(UIGraphicsGetCurrentContext(), 0, (CGFloat[]){1}, 0);
+        CGContextSetLineDash(UIGraphicsGetCurrentContext(), 0, (CGFloat[]){1}, 1);
     }
     else {
         CGContextSetLineDash(UIGraphicsGetCurrentContext(), 0, (CGFloat[]){2, 1}, 2);
@@ -62,19 +62,21 @@
                                  self.view.frame.size.height);
     [[[self canvas] image] drawInRect:drawRect];
     CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
-    CGContextSetLineWidth(UIGraphicsGetCurrentContext(), (int)_sizeSlider.value);
+    CGContextSetLineWidth(UIGraphicsGetCurrentContext(), (float)(_sizeSlider.value * 5.0f));
     
-    UIColor* c = [[self colorsArray] objectAtIndex:(int)self.colorsSegmentedControl.selectedSegmentIndex];
+    UIColor* c = [[self colorsArray] objectAtIndex:(float)_colorsSegmentedControl.selectedSegmentIndex];
     const CGFloat* comp =  CGColorGetComponents(c.CGColor);
     CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), comp[0], comp[1], comp[2], CGColorGetAlpha(c.CGColor));
     
     
-    if (self.formSwitch.isOn)
+    if (_formSwitch.isOn)
     {
-        CGContextSetLineDash(UIGraphicsGetCurrentContext(), 0, (CGFloat[]){1}, 0);
+        CGContextSetLineDash(UIGraphicsGetCurrentContext(), 0, (CGFloat[]){1.0f}, 1);
+
     }
     else {
-        CGContextSetLineDash(UIGraphicsGetCurrentContext(), 0, (CGFloat[]){2, 1}, 2);
+        CGContextSetLineDash(UIGraphicsGetCurrentContext(), 0, (CGFloat[]){2.0f, 1.0f}, 2);
+
     }
     
     CGContextSetLineJoin(UIGraphicsGetCurrentContext(), kCGLineJoinRound);
